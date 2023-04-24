@@ -23,7 +23,7 @@ function App() {
 
 				<div className="container">
 					{/* Filtering */}
-					<CategoryFilter menuList={menuList} onSelectCategory={handleSelectCategory} />
+					<CategoryFilter menuList={menuList} onSelectCategory={handleSelectCategory} activeCategory={selectedCategory} />
 					<div className="menu-wrapper">
 						{filteredMenuList.map((item) => (
 							<MenuItem item={item} key={item.id} />
