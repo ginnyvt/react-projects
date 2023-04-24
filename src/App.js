@@ -1,13 +1,37 @@
+import { useState } from "react";
 import { menuList } from "./assets/data";
+import CategoryFilter from "./components/CategoryFilter";
+import MenuItem from "./components/MenuItem";
 
 function App() {
-	/* make new array that contains unique categories */
-	const categories = [...new Set(menuList.map((item) => item.category))];
-	console.log(categories);
+	const [selectedCategory, setSelectedCategory] = useState("all");
+
+	function handleSelectCategory(category) {
+		setSelectedCategory(category);
+	}
+
+	const filteredMenuList =
+		selectedCategory === "all" ? menuList : menuList.filter((item) => item.category === selectedCategory);
+
 	return (
-		<>
-			<h3>Menu </h3>
-		</>
+		<main>
+			<section>
+				<div className="section-title">
+					<h3>Menu </h3>
+					<div className="section-title__underline"></div>
+				</div>
+
+				<div className="container">
+					{/* Filtering */}
+					<CategoryFilter menuList={menuList} onSelectCategory={handleSelectCategory} />
+					<div className="menu-wrapper">
+						{filteredMenuList.map((item) => (
+							<MenuItem item={item} key={item.id} />
+						))}
+					</div>
+				</div>
+			</section>
+		</main>
 	);
 }
 
